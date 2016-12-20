@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{365B9FC1-86B4-4626-B4FB-1FE415E3E63E}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Cryptopals/Set2.cs">
+    <Files>
+      <File FileName="Cryptopals/Set2.cs" Line="152" Column="31" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Cryptopals PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

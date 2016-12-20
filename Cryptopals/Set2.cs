@@ -150,7 +150,6 @@ namespace Cryptopals
             DecipherEcryptionType(encryptedMessage);
             Console.WriteLine("Q11: {0}", Encoding.UTF8.GetString(encryptedMessage));
             Console.ReadKey();
-
         }
     }
 }
