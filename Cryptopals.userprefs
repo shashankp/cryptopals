@@ -1,7 +1,11 @@
 ﻿<Properties StartupConfiguration="{365B9FC1-86B4-4626-B4FB-1FE415E3E63E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Cryptopals/Set2.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TestCryptopals/TestSet1.cs">
     <Files>
+      <File FileName="Cryptopals/Data/10.txt" Line="1" Column="1" />
+      <File FileName="Cryptopals/Data/10-test.txt" Line="1" Column="1" />
       <File FileName="Cryptopals/Set2.cs" Line="152" Column="31" />
+      <File FileName="TestCryptopals/TestSet1.cs" Line="108" Column="19" />
+      <File FileName="TestCryptopals/TestSet2.cs" Line="8" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

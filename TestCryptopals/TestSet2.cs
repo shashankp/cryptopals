@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Cryptopals
 {
-    [TestClass]
+    [TestFixture]
     public class TestSet2
     {
-        [TestMethod]
+        [Test]
         public void TestPkcs7Padding()
         {
             Assert.AreEqual(
@@ -16,7 +16,7 @@ namespace Cryptopals
                  "YELLOW SUBMARINE\x04\x04\x04\x04");
         }
 
-        [TestMethod]
+        [Test]
         public void TestEcbAesEncrypt()
         {
             var key = Encoding.ASCII.GetBytes("YELLOW SUBMARINE");
@@ -32,7 +32,7 @@ namespace Cryptopals
             Assert.IsTrue(hexResult.Equals(Crypto.BytesToHex(Crypto.EcbAesEncrypt(message, key, iv))));
         }
 
-        [TestMethod]
+        [Test]
         public void TestCbcAesEncrypt()
         {
             var key = Encoding.UTF8.GetBytes("YELLOW SUBMARINE");
@@ -48,7 +48,7 @@ namespace Cryptopals
             Assert.IsTrue(result.Equals(Crypto.BytesToHex(Crypto.CbcAesEncrypt(message, key, iv))));
         }
 
-        [TestMethod]
+        [Test]
         public void TestCbcAesDecrypt()
         {
             const string key = "YELLOW SUBMARINE";

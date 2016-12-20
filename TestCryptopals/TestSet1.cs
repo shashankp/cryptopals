@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace Cryptopals
 {
-    [TestClass]
+    [TestFixture]
     public class TestSet1
     {
         private string _hex, _base64, _ascii;
 
-        [TestInitialize]
+		[SetUp]
         public void Initialize()
         {
             _hex = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d";
@@ -18,33 +18,32 @@ namespace Cryptopals
             _ascii = "I'm killing your brain like a poisonous mushroom";
         }
 
-        [TestMethod]
+        [Test]
         public void TestHexToBase64()
         {
             Assert.IsTrue(Crypto.HexToBase64(_hex).Equals(_base64, StringComparison.OrdinalIgnoreCase));
         }
 
-        [TestMethod]
+        [Test]
         public void TestBase64ToHex()
         {
             Assert.IsTrue(Crypto.Base64ToHex(_base64).Equals(_hex, StringComparison.OrdinalIgnoreCase));
             Assert.IsTrue(Crypto.Base64ToHex(Crypto.HexToBase64(_hex)).Equals(_hex, StringComparison.OrdinalIgnoreCase));
         }
 
-        [TestMethod]
+        [Test]
         public void TestHexToString()
         {
             Assert.IsTrue(Crypto.HexToString(_hex).Equals(_ascii, StringComparison.OrdinalIgnoreCase));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidDataException))]
+        [Test]
         public void TestHexToBytes_takes_even_length_input_only()
         {
-            Crypto.HexToBytes("123");
+			Assert.Throws<InvalidDataException>(() => Crypto.HexToBytes("123") );
         }
 
-        [TestMethod]
+        [Test]
         public void TestXor()
         {
             Assert.IsTrue(
@@ -53,19 +52,18 @@ namespace Cryptopals
                 .Equals("746865206b696420646f6e277420706c6179", StringComparison.OrdinalIgnoreCase));
 
             Assert.IsTrue(
-                Encoding.UTF8.GetString(Crypto.Xor(Crypto.HexToBytes("1c0111001f010100061a024b53535009181c"),
+				Encoding.UTF8.GetString(Crypto.Xor(Crypto.HexToBytes("1c0111001f010100061a024b53535009181c"),
                                                Crypto.HexToBytes("686974207468652062756c6c277320657965")))
                      .Equals("the kid don't play", StringComparison.OrdinalIgnoreCase));
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidDataException))]
+        [Test]
         public void TestXor_Unequal_inputs()
         {
-            Crypto.Xor(Crypto.HexToBytes("abcd"), Crypto.HexToBytes("abcdef"));
+			Assert.Throws<InvalidDataException>(() => Crypto.Xor(Crypto.HexToBytes("abcd"), Crypto.HexToBytes("abcdef")));
         }
 
-        [TestMethod]
+        [Test]
         public void TestRepeatingKey()
         {
             Assert.AreEqual(Crypto.GenerateRepeatingKey("01", 5), "01010");
@@ -73,7 +71,7 @@ namespace Cryptopals
             Assert.AreEqual(Crypto.GenerateRepeatingKey("012", 6), "012012");
         }
 
-        [TestMethod]
+        [Test]
         public void TestEncrypt()
         {
             const string key = "ICE";
@@ -85,36 +83,35 @@ namespace Cryptopals
             Assert.IsTrue(Crypto.XorEncrypt(message, key).Equals(encryptedMessage, StringComparison.OrdinalIgnoreCase));
         }
 
-        [TestMethod]
+        [Test]
         public void TestStringToHex()
         {
             Assert.IsTrue(Crypto.StringToHex("the kid don't play").Equals("746865206b696420646f6e277420706c6179", StringComparison.OrdinalIgnoreCase));
         }
 
-        [TestMethod]
+        [Test]
         public void TestHammingDistance()
         {
             Assert.AreEqual(Crypto.HammingDistance(Encoding.UTF8.GetBytes("this is a test"), Encoding.UTF8.GetBytes("wokka wokka!!!")), 37);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidDataException))]
+        [Test]
         public void TestHammingDistance_takes_equal_length_inputs_only()
         {
-            Crypto.HammingDistance(Encoding.UTF8.GetBytes("abc"), Encoding.UTF8.GetBytes("abcd"));
+			Assert.Throws<InvalidDataException>(() => Crypto.HammingDistance(Encoding.UTF8.GetBytes("abc"), Encoding.UTF8.GetBytes("abcd")));
         }
 
-        [TestMethod]
+        [Test]
         public void TestEcbAesDecrypt()
         {
             Assert.IsTrue(Encoding.UTF8.GetString(Crypto.EcbAesDecrypt(
                                     Convert.FromBase64String(File.ReadAllText(@"Data\7.txt")),
                                     Encoding.UTF8.GetBytes("YELLOW SUBMARINE"),
                                     new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }))
-                                  .StartsWith("I'm back and I'm ringin' the bell"));
+			              .StartsWith("I'm back and I'm ringin' the bell", StringComparison.Ordinal));
         }
 
-        [TestMethod]
+        [Test]
         public void TestTryFindEcbEncryptedString()
         {
             Assert.AreEqual(Crypto.TryFindEcbEncryptedString(new[] { 
@@ -124,7 +121,7 @@ namespace Cryptopals
                 "d880619740a8a19b7840a8a31c810a3d08649af70dc06f4fd5d2d69c744cd283e2dd052f6b641dbf9d11b0348542bb5708649af70dc06f4fd5d2d69c744cd2839475c9dfdbc1d46597949d9c7e82bf5a08649af70dc06f4fd5d2d69c744cd28397a93eab8d6aecd566489154789a6b0308649af70dc06f4fd5d2d69c744cd283d403180c98c8f6db1f2a3f9c4040deb0ab51b29933f2c123c58386b06fba186a");
         }
 
-        [TestMethod]
+        [Test]
         public void TestScore()
         {
             Assert.AreEqual(Crypto.Score("Hi, ^$"), 4);
